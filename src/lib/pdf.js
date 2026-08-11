@@ -1,30 +1,17 @@
-// Server-side PDF text extraction with per-page text (needed for page citations).
-// Uses pdf-parse's pagerender hook to capture each page separately.
-import pdf from "pdf-parse/lib/pdf-parse.js";
+// Server-side PDF text extraction with per-page text (page numbers power the citations).
+//
+// Uses `unpdf` rather than `pdf-parse`: pdf-parse bundles a 2018-era pdf.js build that
+// assumes a normal Node filesystem and fails inside Vercel's serverless runtime with
+// "bad XRef entry" even on a byte-perfect PDF. unpdf ships a serverless-safe pdf.js build.
+import { extractText, getDocumentProxy } from "unpdf";
 
 export async function extractPolicyPdf(buffer) {
-  const pages = [];
+  const data = new Uint8Array(buffer);
+  const pdf = await getDocumentProxy(data);
+  const { totalPages, text } = await extractText(pdf, { mergePages: false });
 
-  function renderPage(pageData) {
-    return pageData
-      .getTextContent({ normalizeWhitespace: true, disableCombineTextItems: false })
-      .then((textContent) => {
-        let lastY = null;
-        let text = "";
-        for (const item of textContent.items) {
-          const y = item.transform[5];
-          if (lastY !== null && Math.abs(y - lastY) > 1) text += "\n";
-          text += item.str;
-          lastY = y;
-        }
-        pages.push(text.trim());
-        return text;
-      });
-  }
-
-  const data = await pdf(buffer, { pagerender: renderPage });
-
-  const perPage = pages.map((text, i) => ({ page: i + 1, text }));
+  const pageTexts = Array.isArray(text) ? text : [text];
+  const perPage = pageTexts.map((t, i) => ({ page: i + 1, text: (t || "").trim() }));
   const totalChars = perPage.reduce((n, p) => n + p.text.length, 0);
 
   // Build a page-tagged document the model can cite from.
@@ -33,10 +20,10 @@ export async function extractPolicyPdf(buffer) {
     .join("\n");
 
   return {
-    numPages: data.numpages || perPage.length,
+    numPages: totalPages || perPage.length,
     pages: perPage,
     taggedText,
-    // Heuristic: real PDFs have lots of extractable text; scanned/image PDFs have almost none.
+    // Heuristic: digital PDFs have plenty of extractable text; scanned ones have almost none.
     looksScanned: totalChars < 200,
   };
 }
