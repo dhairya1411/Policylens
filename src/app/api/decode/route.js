@@ -18,7 +18,33 @@ export async function POST(request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const extracted = await extractPolicyPdf(buffer);
+
+    // Diagnostics: if the bytes are not a real PDF by the time they reach the server,
+    // say so explicitly instead of letting the PDF parser fail with a cryptic error.
+    const magic = buffer.subarray(0, 5).toString("latin1");
+    if (magic !== "%PDF-") {
+      return NextResponse.json({
+        ok: false,
+        error: "not_pdf_bytes",
+        message: "The uploaded file did not arrive as a valid PDF.",
+        detail: `received ${buffer.length} bytes, header="${magic}" (expected "%PDF-")`,
+      });
+    }
+
+    let extracted;
+    try {
+      extracted = await extractPolicyPdf(buffer);
+    } catch (parseErr) {
+      return NextResponse.json({
+        ok: false,
+        error: "pdf_parse",
+        message: "Could not read this PDF.",
+        detail: `${parseErr.message} | bytes=${buffer.length} header="${magic}" tail="${buffer
+          .subarray(buffer.length - 6)
+          .toString("latin1")
+          .replace(/[^\x20-\x7e]/g, ".")}"`,
+      });
+    }
 
     if (extracted.looksScanned) {
       return NextResponse.json({

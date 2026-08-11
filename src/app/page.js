@@ -54,8 +54,24 @@ export default function Home() {
     setMessage("");
     setDetail("");
     try {
-      const res = await fetch("/sample-health-policy.pdf");
+      const res = await fetch("/sample-health-policy.pdf", { cache: "no-store" });
+      if (!res.ok) {
+        setStatus("error");
+        setMessage("Could not load the sample policy.");
+        setDetail(`Sample PDF request failed: HTTP ${res.status}`);
+        return;
+      }
       const blob = await res.blob();
+      // If the CDN returned an HTML error/auth page instead of the PDF, fail clearly
+      // rather than handing junk bytes to the PDF parser.
+      const head = new Uint8Array(await blob.slice(0, 5).arrayBuffer());
+      const magic = String.fromCharCode(...head);
+      if (magic !== "%PDF-") {
+        setStatus("error");
+        setMessage("Could not load the sample policy.");
+        setDetail(`Sample file was not a PDF (got "${blob.type || "unknown"}"). It may be blocked by deployment protection.`);
+        return;
+      }
       const file = new File([blob], "sample-health-policy.pdf", { type: "application/pdf" });
       decode(file);
     } catch (e) {
