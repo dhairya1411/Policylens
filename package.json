@@ -1,0 +1,19 @@
+{
+  "name": "policylens",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "eval": "node eval/run-eval.mjs",
+    "eval:smoke": "node eval/run-eval.mjs --smoke"
+  },
+  "dependencies": {
+    "groq-sdk": "^0.9.0",
+    "next": "^14.2.33",
+    "pdf-parse": "^1.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "category": "Coverage",
+    "scenario": "Admitted 3 nights for pneumonia; policy 2 years old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 2.1",
+    "mustCatch": "—",
+    "rationale": "Inpatient hospitalisation >24 hrs is covered; no waiting period issue at 2 years."
+  },
+  {
+    "id": 2,
+    "category": "WaitingPeriod",
+    "scenario": "Hospitalised for dengue; policy started 15 days ago.",
+    "expected": "Not covered",
+    "expectedClause": "Section 3.1",
+    "mustCatch": "30-day initial waiting period",
+    "rationale": "Any non-accident illness within the first 30 days is not payable."
+  },
+  {
+    "id": 3,
+    "category": "WaitingPeriod",
+    "scenario": "Broke a leg in a road accident; policy is 10 days old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 3.1",
+    "mustCatch": "Accident exception to initial wait",
+    "rationale": "Initial 30-day waiting period does not apply to accidental hospitalisation."
+  },
+  {
+    "id": 4,
+    "category": "WaitingPeriod",
+    "scenario": "Diabetic for 5 years; admitted for a diabetes complication; policy 12 months old.",
+    "expected": "Not covered",
+    "expectedClause": "Section 3.3",
+    "mustCatch": "36-month PED waiting period",
+    "rationale": "Pre-existing disease covered only after 36 months of continuous cover."
+  },
+  {
+    "id": 5,
+    "category": "WaitingPeriod",
+    "scenario": "Cataract surgery; policy 18 months old.",
+    "expected": "Not covered",
+    "expectedClause": "Section 3.2",
+    "mustCatch": "24-month specific-illness wait",
+    "rationale": "Cataract needs 24 months of continuous cover."
+  },
+  {
+    "id": 6,
+    "category": "Limit/Co-pay",
+    "scenario": "Cataract surgery; policy 3 years old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 3.2, 4.3",
+    "mustCatch": "Rs 40,000/eye sub-limit",
+    "rationale": "Waiting period met, but cataract claims are capped at Rs 40,000 per eye."
+  },
+  {
+    "id": 7,
+    "category": "Limit/Co-pay",
+    "scenario": "Father, 65, admitted for cardiac care; policy 4 years old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 4.2",
+    "mustCatch": "10% co-payment (age >60)",
+    "rationale": "Covered, but a 10% co-pay applies as insured is above 60."
+  },
+  {
+    "id": 8,
+    "category": "Limit/Co-pay",
+    "scenario": "Chose a deluxe room costing above 1% of the sum insured.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 4.1",
+    "mustCatch": "Proportionate deduction",
+    "rationale": "Room rent capped at 1% of SI/day; higher category => proportionate payment."
+  },
+  {
+    "id": 9,
+    "category": "Exclusion",
+    "scenario": "Elective cosmetic nose reshaping.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.2",
+    "mustCatch": "Cosmetic surgery excluded",
+    "rationale": "Cosmetic/plastic surgery excluded unless due to accident, burn or cancer."
+  },
+  {
+    "id": 10,
+    "category": "Exclusion",
+    "scenario": "Reconstructive surgery after a burn injury.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 5.2",
+    "mustCatch": "Burn exception applies",
+    "rationale": "Cosmetic exclusion has an explicit exception for burns."
+  },
+  {
+    "id": 11,
+    "category": "Exclusion",
+    "scenario": "Root canal at the dentist; no accident involved.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.3",
+    "mustCatch": "Dental excluded",
+    "rationale": "Dental treatment excluded unless due to accident requiring hospitalisation."
+  },
+  {
+    "id": 12,
+    "category": "Exclusion",
+    "scenario": "Jaw surgery with hospitalisation after a road accident.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 5.3",
+    "mustCatch": "Accident exception",
+    "rationale": "Dental due to accident requiring hospitalisation is covered."
+  },
+  {
+    "id": 13,
+    "category": "Exclusion",
+    "scenario": "Admitted one day only for tests; no active treatment given.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.1",
+    "mustCatch": "Diagnostic-only admission excluded",
+    "rationale": "Hospitalisation purely for diagnostics/observation is excluded."
+  },
+  {
+    "id": 14,
+    "category": "Limit/Co-pay",
+    "scenario": "Cataract done as a day-care procedure (<24 hrs); policy 3 years old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 2.2, 4.3",
+    "mustCatch": "Rs 40,000/eye sub-limit",
+    "rationale": "Day-care covered and wait met, but the cataract sub-limit still applies."
+  },
+  {
+    "id": 15,
+    "category": "Coverage",
+    "scenario": "Normal delivery; policy 30 months old.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 4.4, 3.4",
+    "mustCatch": "Rs 50,000 maternity limit",
+    "rationale": "Maternity covered after 24 months; normal delivery limited to Rs 50,000."
+  },
+  {
+    "id": 16,
+    "category": "WaitingPeriod",
+    "scenario": "Delivery; policy 12 months old.",
+    "expected": "Not covered",
+    "expectedClause": "Section 3.4",
+    "mustCatch": "24-month maternity wait",
+    "rationale": "Maternity expenses need 24 months of continuous cover."
+  },
+  {
+    "id": 17,
+    "category": "Limit/Co-pay",
+    "scenario": "Ambulance bill of Rs 3,500.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 2.5",
+    "mustCatch": "Rs 2,000 ambulance cap",
+    "rationale": "Road ambulance covered but capped at Rs 2,000 per hospitalisation."
+  },
+  {
+    "id": 18,
+    "category": "Coverage",
+    "scenario": "Inpatient Ayurvedic treatment at a recognised hospital.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 2.6",
+    "mustCatch": "—",
+    "rationale": "AYUSH in-patient treatment covered up to the sum insured."
+  },
+  {
+    "id": 19,
+    "category": "Exclusion",
+    "scenario": "Rehab for alcohol dependence.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.5",
+    "mustCatch": "Substance-abuse excluded",
+    "rationale": "Treatment for alcoholism / substance abuse is excluded."
+  },
+  {
+    "id": 20,
+    "category": "Exclusion",
+    "scenario": "Injury from a suicide attempt.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.4",
+    "mustCatch": "Self-inflicted excluded",
+    "rationale": "Self-inflicted injury / attempted suicide is excluded."
+  },
+  {
+    "id": 21,
+    "category": "Exclusion",
+    "scenario": "Cost of new prescription glasses.",
+    "expected": "Not covered",
+    "expectedClause": "Section 5.6",
+    "mustCatch": "Spectacles excluded",
+    "rationale": "Spectacles, contact lenses and hearing aids are excluded."
+  },
+  {
+    "id": 22,
+    "category": "Coverage",
+    "scenario": "Diagnostic tests 20 days before admission.",
+    "expected": "Likely covered",
+    "expectedClause": "Section 2.3",
+    "mustCatch": "—",
+    "rationale": "Pre-hospitalisation expenses covered up to 30 days before admission."
+  },
+  {
+    "id": 23,
+    "category": "Limit/Co-pay",
+    "scenario": "Medicines bought 75 days after discharge.",
+    "expected": "Not covered",
+    "expectedClause": "Section 2.4",
+    "mustCatch": "60-day post-hosp limit",
+    "rationale": "Post-hospitalisation covered only up to 60 days after discharge."
+  },
+  {
+    "id": 24,
+    "category": "Ambiguous",
+    "scenario": "Is my surgery covered? (no other details given)",
+    "expected": "Unclear",
+    "expectedClause": "—",
+    "mustCatch": "Insufficient facts",
+    "rationale": "Calibration rule: with missing facts, the tool must say Unclear, not guess."
+  }
+]
