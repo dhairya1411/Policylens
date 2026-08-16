@@ -1,0 +1,153 @@
+{
+  "runAt": "2026-08-16T08:04:07.876Z",
+  "baseUrl": "http://localhost:3000",
+  "model": "llama-3.3-70b-versatile (default)",
+  "subset": [
+    3,
+    5,
+    8,
+    16,
+    23,
+    24
+  ],
+  "complete": false,
+  "abortedReason": null,
+  "totals": {
+    "scenarios": 6,
+    "scored": 6,
+    "passed": 5,
+    "failed": 1,
+    "apiErrors": 0,
+    "dangerousErrors": 0,
+    "passRate": "83.3%",
+    "dangerousErrorRate": "0.0%"
+  },
+  "results": [
+    {
+      "id": 3,
+      "category": "WaitingPeriod",
+      "scenario": "Broke a leg in a road accident; policy is 10 days old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 3.1",
+      "mustCatch": "Accident exception to initial wait",
+      "rationale": "Initial 30-day waiting period does not apply to accidental hospitalisation.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "The claim for a broken leg in a road accident is likely covered since the initial waiting period does not apply to accidents.",
+      "citedClauses": [
+        "Section 3.1",
+        "Section 1.1",
+        "Section 2.1"
+      ],
+      "rejectionRisks": [
+        "Room rent cap",
+        "Co-payment if insured is above 60 years old"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 5,
+      "category": "WaitingPeriod",
+      "scenario": "Cataract surgery; policy 18 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.2",
+      "mustCatch": "24-month specific-illness wait",
+      "rationale": "Cataract needs 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Cataract surgery is excluded due to the specific illness waiting period not being met.",
+      "citedClauses": [
+        "Section 3.2",
+        "Section 3.2"
+      ],
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 8,
+      "category": "Limit/Co-pay",
+      "scenario": "Chose a deluxe room costing above 1% of the sum insured.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 4.1",
+      "mustCatch": "Proportionate deduction",
+      "rationale": "Room rent capped at 1% of SI/day; higher category => proportionate payment.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The claim for a deluxe room is not covered because the room rent exceeds 1% of the sum insured.",
+      "citedClauses": [
+        "Section 4.1"
+      ],
+      "rejectionRisks": [
+        "Proportionate deduction for higher room category"
+      ],
+      "pass": false,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 16,
+      "category": "WaitingPeriod",
+      "scenario": "Delivery; policy 12 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.4",
+      "mustCatch": "24-month maternity wait",
+      "rationale": "Maternity expenses need 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The claim for delivery is not covered because the policy is only 12 months old and the maternity waiting period is 24 months.",
+      "citedClauses": [
+        "Section 3.4"
+      ],
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 23,
+      "category": "Limit/Co-pay",
+      "scenario": "Medicines bought 75 days after discharge.",
+      "expected": "Not covered",
+      "expectedClause": "Section 2.4",
+      "mustCatch": "60-day post-hosp limit",
+      "rationale": "Post-hospitalisation covered only up to 60 days after discharge.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Medicines bought 75 days after discharge are not covered because they exceed the 60-day post-hospitalisation window.",
+      "citedClauses": [
+        "Section 2.4"
+      ],
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 24,
+      "category": "Ambiguous",
+      "scenario": "Is my surgery covered? (no other details given)",
+      "expected": "Unclear",
+      "expectedClause": "—",
+      "mustCatch": "Insufficient facts",
+      "rationale": "Calibration rule: with missing facts, the tool must say Unclear, not guess.",
+      "actual": "Unclear",
+      "confidence": "low",
+      "summary": "The policy covers various medical expenses, but the specific details of the surgery are needed to determine coverage.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3"
+      ],
+      "rejectionRisks": [
+        "Waiting periods",
+        "Exclusions"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    }
+  ]
+}

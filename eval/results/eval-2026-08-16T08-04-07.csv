@@ -1,0 +1,7 @@
+id,category,scenario,expected,actual,pass,dangerous,confidence,cited_clauses,summary
+3,WaitingPeriod,"Broke a leg in a road accident; policy is 10 days old.",Likely covered,Likely covered,PASS,NO,high,"Section 3.1; Section 1.1; Section 2.1","The claim for a broken leg in a road accident is likely covered since the initial waiting period does not apply to accidents."
+5,WaitingPeriod,"Cataract surgery; policy 18 months old.",Not covered,Not covered,PASS,NO,high,"Section 3.2; Section 3.2","Cataract surgery is excluded due to the specific illness waiting period not being met."
+8,Limit/Co-pay,"Chose a deluxe room costing above 1% of the sum insured.",Likely covered,Not covered,FAIL,NO,high,"Section 4.1","The claim for a deluxe room is not covered because the room rent exceeds 1% of the sum insured."
+16,WaitingPeriod,"Delivery; policy 12 months old.",Not covered,Not covered,PASS,NO,high,"Section 3.4","The claim for delivery is not covered because the policy is only 12 months old and the maternity waiting period is 24 months."
+23,Limit/Co-pay,"Medicines bought 75 days after discharge.",Not covered,Not covered,PASS,NO,high,"Section 2.4","Medicines bought 75 days after discharge are not covered because they exceed the 60-day post-hospitalisation window."
+24,Ambiguous,"Is my surgery covered? (no other details given)",Unclear,Unclear,PASS,NO,low,"Section 2.1; Section 3","The policy covers various medical expenses, but the specific details of the surgery are needed to determine coverage."

@@ -1,16 +1,19 @@
 {
-  "runAt": "2026-08-11T21:21:20.410Z",
+  "runAt": "2026-08-16T08:11:01.917Z",
   "baseUrl": "http://localhost:3000",
   "model": "llama-3.3-70b-versatile (default)",
+  "subset": null,
+  "complete": true,
+  "abortedReason": null,
   "totals": {
     "scenarios": 24,
-    "scored": 16,
-    "passed": 14,
+    "scored": 24,
+    "passed": 22,
     "failed": 2,
-    "apiErrors": 8,
-    "dangerousErrors": 1,
-    "passRate": "87.5%",
-    "dangerousErrorRate": "6.3%"
+    "apiErrors": 0,
+    "dangerousErrors": 0,
+    "passRate": "91.7%",
+    "dangerousErrorRate": "0.0%"
   },
   "results": [
     {
@@ -23,13 +26,15 @@
       "rationale": "Inpatient hospitalisation >24 hrs is covered; no waiting period issue at 2 years.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "The claim for pneumonia hospitalization is likely covered as it falls under the in-patient hospitalization clause and does not violate any waiting periods or exclusions.",
+      "summary": "The claim for pneumonia hospitalisation is likely covered as the policy is 2 years old and there are no specific exclusions for pneumonia.",
       "citedClauses": [
         "Section 2.1",
-        "Section 3.1"
+        "Section 3.1",
+        "Section 3.2"
       ],
       "rejectionRisks": [
-        "Room rent cap"
+        "Room rent cap",
+        "Co-payment if the insured person is above 60 years old"
       ],
       "pass": true,
       "dangerous": false,
@@ -45,13 +50,12 @@
       "rationale": "Any non-accident illness within the first 30 days is not payable.",
       "actual": "Not covered",
       "confidence": "high",
-      "summary": "The claim is not covered due to the initial waiting period of 30 days from the policy commencement date.",
+      "summary": "The claim for dengue hospitalisation is not covered due to the initial waiting period of 30 days.",
       "citedClauses": [
+        "Section 3.1",
         "Section 3.1"
       ],
-      "rejectionRisks": [
-        "Initial Waiting Period"
-      ],
+      "rejectionRisks": [],
       "pass": true,
       "dangerous": false,
       "error": null
@@ -64,14 +68,17 @@
       "expectedClause": "Section 3.1",
       "mustCatch": "Accident exception to initial wait",
       "rationale": "Initial 30-day waiting period does not apply to accidental hospitalisation.",
-      "actual": "Not covered",
+      "actual": "Likely covered",
       "confidence": "high",
-      "summary": "The claim is not covered due to the initial waiting period of 30 days from the policy commencement date, which has not been completed.",
+      "summary": "The claim for a broken leg in a road accident is likely covered as it is an accidental injury and does not fall under any waiting period.",
       "citedClauses": [
-        "Section 3.1"
+        "Section 3.1",
+        "Section 2.1"
       ],
-      "rejectionRisks": [],
-      "pass": false,
+      "rejectionRisks": [
+        "Room rent cap"
+      ],
+      "pass": true,
       "dangerous": false,
       "error": null
     },
@@ -85,7 +92,7 @@
       "rationale": "Pre-existing disease covered only after 36 months of continuous cover.",
       "actual": "Not covered",
       "confidence": "high",
-      "summary": "The claim is not covered because the policy is only 12 months old and the pre-existing disease waiting period is 36 months.",
+      "summary": "The claim for diabetes complication is not covered due to the pre-existing disease waiting period.",
       "citedClauses": [
         "Section 3.3",
         "Section 1.2"
@@ -103,19 +110,16 @@
       "expectedClause": "Section 3.2",
       "mustCatch": "24-month specific-illness wait",
       "rationale": "Cataract needs 24 months of continuous cover.",
-      "actual": "Likely covered",
+      "actual": "Not covered",
       "confidence": "high",
-      "summary": "Cataract surgery is likely covered after the specific illness waiting period of 24 months, but with a sub-limit of Rs. 40,000 per eye per policy year.",
+      "summary": "Cataract surgery is excluded due to the specific illness waiting period not being met.",
       "citedClauses": [
-        "Section 3.2",
         "Section 3.2",
         "Section 3.2"
       ],
-      "rejectionRisks": [
-        "Cataract sub-limit of Rs. 40,000 per eye per policy year"
-      ],
-      "pass": false,
-      "dangerous": true,
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
       "error": null
     },
     {
@@ -128,14 +132,14 @@
       "rationale": "Waiting period met, but cataract claims are capped at Rs 40,000 per eye.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "Cataract surgery is likely covered after the specific illness waiting period of 24 months, with a sub-limit of Rs. 40,000 per eye per policy year.",
+      "summary": "Cataract surgery is likely covered under this policy as it has been more than 24 months since the policy commencement date.",
       "citedClauses": [
         "Section 3.2",
         "Section 3.2",
         "Section 4.3"
       ],
       "rejectionRisks": [
-        "Sub-limit of Rs. 40,000 per eye per policy year for cataract surgery"
+        "Sub-limit for cataract surgery"
       ],
       "pass": true,
       "dangerous": false,
@@ -151,16 +155,14 @@
       "rationale": "Covered, but a 10% co-pay applies as insured is above 60.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "The claim for cardiac care is likely covered, but with a 10% co-payment due to the father's age and potential room rent cap.",
+      "summary": "The claim for cardiac care is likely covered under the policy, with some potential limits and co-payments applicable.",
       "citedClauses": [
         "Section 2.1",
-        "Section 3.1",
-        "Section 3.2",
-        "Section 3.3"
+        "Section 3.2"
       ],
       "rejectionRisks": [
-        "10% co-payment due to age above 60",
-        "Room rent cap at 1% of the Sum Insured per day"
+        "Co-payment of 10% applies due to age above 60",
+        "Room rent capped at 1% of Sum Insured per day"
       ],
       "pass": true,
       "dangerous": false,
@@ -174,17 +176,17 @@
       "expectedClause": "Section 4.1",
       "mustCatch": "Proportionate deduction",
       "rationale": "Room rent capped at 1% of SI/day; higher category => proportionate payment.",
-      "actual": "Likely covered",
+      "actual": "Not covered",
       "confidence": "high",
-      "summary": "The claim is likely covered but with a proportionate payment for room rent due to choosing a deluxe room above 1% of the sum insured.",
+      "summary": "The claim for a deluxe room costing above 1% of the sum insured is not covered due to the room rent cap.",
       "citedClauses": [
         "Section 4.1",
         "Section 4.1"
       ],
       "rejectionRisks": [
-        "Proportionate payment for room rent"
+        "Proportionate deduction for higher room category"
       ],
-      "pass": true,
+      "pass": false,
       "dangerous": false,
       "error": null
     },
@@ -198,7 +200,7 @@
       "rationale": "Cosmetic/plastic surgery excluded unless due to accident, burn or cancer.",
       "actual": "Not covered",
       "confidence": "high",
-      "summary": "Elective cosmetic nose reshaping is excluded from coverage unless necessitated by an Accident, Burn, or Cancer.",
+      "summary": "Elective cosmetic nose reshaping is excluded from coverage as it is not necessitated by an accident, burn, or cancer.",
       "citedClauses": [
         "Section 5.2"
       ],
@@ -217,13 +219,14 @@
       "rationale": "Cosmetic exclusion has an explicit exception for burns.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "Reconstructive surgery after a burn injury is likely covered under this policy as it is necessitated by a burn, which is an exception to the exclusion of cosmetic or plastic surgery.",
+      "summary": "Reconstructive surgery after a burn injury is likely covered under this policy as it is considered a necessary treatment following an accident or burn, which is an exception to the exclusion on cosmetic or plastic surgery.",
       "citedClauses": [
         "Section 5.2",
         "Section 2.1"
       ],
       "rejectionRisks": [
-        "Room rent cap"
+        "Room rent cap at 1% of the Sum Insured per day",
+        "Co-payment of 10% if the Insured Person is above 60 years of age at the time of Hospitalisation"
       ],
       "pass": true,
       "dangerous": false,
@@ -239,9 +242,10 @@
       "rationale": "Dental treatment excluded unless due to accident requiring hospitalisation.",
       "actual": "Not covered",
       "confidence": "high",
-      "summary": "Dental treatment or surgery is excluded unless necessitated due to an accident and requiring hospitalisation.",
+      "summary": "Dental treatment is excluded unless necessitated by an accident and requiring hospitalisation.",
       "citedClauses": [
-        "Section 5.3"
+        "Section 5.3",
+        "None"
       ],
       "rejectionRisks": [],
       "pass": true,
@@ -260,13 +264,13 @@
       "confidence": "high",
       "summary": "Jaw surgery with hospitalisation after a road accident is likely covered under the policy.",
       "citedClauses": [
-        "Section 2.1",
         "Section 3.1",
-        "Section 5.2"
+        "Section 2.1",
+        "Section 3.1"
       ],
       "rejectionRisks": [
         "Room rent cap",
-        "Co-payment if the insured person is above 60 years old"
+        "Co-payment if the insured is above 60 years old"
       ],
       "pass": true,
       "dangerous": false,
@@ -282,7 +286,7 @@
       "rationale": "Hospitalisation purely for diagnostics/observation is excluded.",
       "actual": "Not covered",
       "confidence": "high",
-      "summary": "The claim is not covered because the hospitalization was primarily for diagnostic purposes with no active treatment given.",
+      "summary": "The claim is not covered because the hospitalisation was primarily for diagnostic purposes with no active treatment given.",
       "citedClauses": [
         "Section 5.1",
         "Section 1.1"
@@ -302,13 +306,13 @@
       "rationale": "Day-care covered and wait met, but the cataract sub-limit still applies.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "Cataract surgery as a day-care procedure is likely covered under this policy, with a sub-limit of Rs. 40,000 per eye per policy year.",
+      "summary": "The cataract surgery done as a day-care procedure is likely covered under the policy.",
       "citedClauses": [
         "Section 2.2",
         "Section 3.2"
       ],
       "rejectionRisks": [
-        "Sub-limit of Rs. 40,000 per eye per policy year for cataract surgery"
+        "Cataract sub-limit of Rs. 40,000 per eye per policy year"
       ],
       "pass": true,
       "dangerous": false,
@@ -324,10 +328,11 @@
       "rationale": "Maternity covered after 24 months; normal delivery limited to Rs 50,000.",
       "actual": "Likely covered",
       "confidence": "high",
-      "summary": "Normal delivery is likely covered after 24 months of continuous coverage under this policy.",
+      "summary": "Normal delivery is covered after 24 months of continuous coverage, which is met in this scenario.",
       "citedClauses": [
+        "Section 2.1",
         "Section 3.4",
-        "Section 3.4"
+        "Section 4.4"
       ],
       "rejectionRisks": [
         "Maternity limit of Rs. 50,000 for normal delivery"
@@ -350,9 +355,7 @@
       "citedClauses": [
         "Section 3.4"
       ],
-      "rejectionRisks": [
-        "Maternity limit"
-      ],
+      "rejectionRisks": [],
       "pass": true,
       "dangerous": false,
       "error": null
@@ -365,14 +368,18 @@
       "expectedClause": "Section 2.5",
       "mustCatch": "Rs 2,000 ambulance cap",
       "rationale": "Road ambulance covered but capped at Rs 2,000 per hospitalisation.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
-      "rejectionRisks": [],
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The ambulance bill exceeds the covered limit of Rs. 2,000 per hospitalisation.",
+      "citedClauses": [
+        "Section 2.5"
+      ],
+      "rejectionRisks": [
+        "Ambulance charges exceeding Rs. 2,000 per hospitalisation"
+      ],
       "pass": false,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99053, Requested 2718. Please try again in 25m30.144s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 18,
@@ -382,14 +389,20 @@
       "expectedClause": "Section 2.6",
       "mustCatch": "—",
       "rationale": "AYUSH in-patient treatment covered up to the sum insured.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
-      "rejectionRisks": [],
-      "pass": false,
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Inpatient Ayurvedic treatment at a recognised hospital is covered under the policy.",
+      "citedClauses": [
+        "Section 2.6",
+        "Section 3"
+      ],
+      "rejectionRisks": [
+        "Room rent cap",
+        "Co-payment if insured is above 60 years"
+      ],
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99033, Requested 2719. Please try again in 25m13.728s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 19,
@@ -399,14 +412,16 @@
       "expectedClause": "Section 5.5",
       "mustCatch": "Substance-abuse excluded",
       "rationale": "Treatment for alcoholism / substance abuse is excluded.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Rehab for alcohol dependence is excluded from coverage under this policy.",
+      "citedClauses": [
+        "Section 5 — Exclusions"
+      ],
       "rejectionRisks": [],
-      "pass": false,
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99014, Requested 2714. Please try again in 24m52.992s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 20,
@@ -416,14 +431,16 @@
       "expectedClause": "Section 5.4",
       "mustCatch": "Self-inflicted excluded",
       "rationale": "Self-inflicted injury / attempted suicide is excluded.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Injury from a suicide attempt is excluded from coverage under the policy.",
+      "citedClauses": [
+        "Section 5 — Exclusions (What is Not Covered)"
+      ],
       "rejectionRisks": [],
-      "pass": false,
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98995, Requested 3176. Please try again in 31m15.744s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 21,
@@ -433,14 +450,16 @@
       "expectedClause": "Section 5.6",
       "mustCatch": "Spectacles excluded",
       "rationale": "Spectacles, contact lenses and hearing aids are excluded.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The cost of new prescription glasses is excluded from coverage under the policy.",
+      "citedClauses": [
+        "Section 5.6"
+      ],
       "rejectionRisks": [],
-      "pass": false,
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98975, Requested 2714. Please try again in 24m19.295999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 22,
@@ -450,14 +469,17 @@
       "expectedClause": "Section 2.3",
       "mustCatch": "—",
       "rationale": "Pre-hospitalisation expenses covered up to 30 days before admission.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Diagnostic tests 20 days before admission are likely covered under the pre-hospitalisation expenses.",
+      "citedClauses": [
+        "Section 2.3",
+        "Section 2.3"
+      ],
       "rejectionRisks": [],
-      "pass": false,
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98956, Requested 2716. Please try again in 24m4.608s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 23,
@@ -467,14 +489,16 @@
       "expectedClause": "Section 2.4",
       "mustCatch": "60-day post-hosp limit",
       "rationale": "Post-hospitalisation covered only up to 60 days after discharge.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Medicines bought 75 days after discharge are not covered because they exceed the 60-day post-hospitalisation window.",
+      "citedClauses": [
+        "Section 2.4"
+      ],
       "rejectionRisks": [],
-      "pass": false,
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98936, Requested 2718. Please try again in 23m49.056s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     },
     {
       "id": 24,
@@ -484,14 +508,20 @@
       "expectedClause": "—",
       "mustCatch": "Insufficient facts",
       "rationale": "Calibration rule: with missing facts, the tool must say Unclear, not guess.",
-      "actual": "ERROR",
-      "confidence": null,
-      "summary": null,
-      "citedClauses": [],
-      "rejectionRisks": [],
-      "pass": false,
+      "actual": "Unclear",
+      "confidence": "low",
+      "summary": "The policy covers various medical expenses, but the specific details of the surgery are needed to determine coverage.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1 and Section 3.2"
+      ],
+      "rejectionRisks": [
+        "Waiting periods",
+        "Exclusions"
+      ],
+      "pass": true,
       "dangerous": false,
-      "error": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98917, Requested 2762. Please try again in 24m10.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+      "error": null
     }
   ]
 }
