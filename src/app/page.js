@@ -99,7 +99,7 @@ export default function Home() {
           {showResult ? (
             <button className="btn btn-ghost btn-sm" onClick={reset}>↺ Analyze another policy</button>
           ) : (
-            <span className="nav-tag">Free · cites every clause</span>
+            <a className="nav-tag nav-demo" href="/demo">▶ Watch the 45-second demo</a>
           )}
         </div>
       </nav>
