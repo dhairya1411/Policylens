@@ -1,0 +1,4 @@
+id,category,scenario,expected,actual,pass,dangerous,confidence,cited_clauses,summary
+4,WaitingPeriod,"Diabetic for 5 years; admitted for a diabetes complication; policy 12 months old.",Not covered,Not covered,PASS,NO,high,"Section 2.1","The diabetes complication is treated as a pre‑existing disease and the 36‑month pre‑existing disease waiting period has not been met (policy only 12 months old)."
+18,Coverage,"Inpatient Ayurvedic treatment at a recognised hospital.",Likely covered,Likely covered,PASS,NO,high,"Section 2.6; Section 3.1","In‑patient AYUSH treatment at a recognised hospital is covered, assuming the 30‑day initial waiting period has been satisfied."
+24,Ambiguous,"Is my surgery covered? (no other details given)",Unclear,Unclear,PASS,NO,medium,"Section 2.1; Section 3.1; Section 3.2; Section 5.2","Coverage cannot be determined without knowing the type of surgery, its cause and the policy’s age."

@@ -1,0 +1,168 @@
+{
+  "runAt": "2026-11-22T10:18:21.283Z",
+  "baseUrl": "http://localhost:3000",
+  "model": "openai/gpt-oss-120b (default)",
+  "subset": [
+    3,
+    5,
+    8,
+    16,
+    23,
+    24
+  ],
+  "complete": false,
+  "abortedReason": null,
+  "totals": {
+    "scenarios": 6,
+    "scored": 6,
+    "passed": 5,
+    "failed": 1,
+    "apiErrors": 0,
+    "dangerousErrors": 0,
+    "passRate": "83.3%",
+    "dangerousErrorRate": "0.0%"
+  },
+  "results": [
+    {
+      "id": 3,
+      "category": "WaitingPeriod",
+      "scenario": "Broke a leg in a road accident; policy is 10 days old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 3.1",
+      "mustCatch": "Accident exception to initial wait",
+      "rationale": "Initial 30-day waiting period does not apply to accidental hospitalisation.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "The broken leg from a road accident is covered because inpatient hospitalisation is included and the accident exemption removes the initial waiting period.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 2.3-2.4",
+        "Section 5"
+      ],
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 5,
+      "category": "WaitingPeriod",
+      "scenario": "Cataract surgery; policy 18 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.2",
+      "mustCatch": "24-month specific-illness wait",
+      "rationale": "Cataract needs 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Cataract surgery is covered in principle, but the 24‑month specific‑illness waiting period is not satisfied because the policy is only 18 months old.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.2",
+        "Section 3.2"
+      ],
+      "rejectionRisks": [
+        "Specific‑illness waiting period not met (policy age 18 months < 24 months required)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 8,
+      "category": "Limit/Co-pay",
+      "scenario": "Chose a deluxe room costing above 1% of the sum insured.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 4.1",
+      "mustCatch": "Proportionate deduction",
+      "rationale": "Room rent capped at 1% of SI/day; higher category => proportionate payment.",
+      "actual": "Unclear",
+      "confidence": "low",
+      "summary": "Room charges are covered but a waiting‑period check is missing, so the claim outcome cannot be determined fully.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 4.1",
+        "Section 3.1"
+      ],
+      "rejectionRisks": [
+        "Waiting period may not be satisfied if policy is less than 30 days old (initial waiting period).",
+        "Room‑rent cap limits reimbursement to 1% of Sum Insured per day; deluxe room cost above this will be reduced proportionately."
+      ],
+      "pass": false,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 16,
+      "category": "WaitingPeriod",
+      "scenario": "Delivery; policy 12 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.4",
+      "mustCatch": "24-month maternity wait",
+      "rationale": "Maternity expenses need 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Maternity expenses are covered only after a 24‑month waiting period, but the policy is only 12 months old.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.4",
+        "Section 3.4"
+      ],
+      "rejectionRisks": [
+        "Maternity waiting period not satisfied (policy age 12 months < 24‑month requirement)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 23,
+      "category": "Limit/Co-pay",
+      "scenario": "Medicines bought 75 days after discharge.",
+      "expected": "Not covered",
+      "expectedClause": "Section 2.4",
+      "mustCatch": "60-day post-hosp limit",
+      "rationale": "Post-hospitalisation covered only up to 60 days after discharge.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Medicines purchased 75 days after discharge exceed the 60‑day post‑hospitalisation limit, so the claim is not payable.",
+      "citedClauses": [
+        "Section 2.4",
+        "Section 2.4"
+      ],
+      "rejectionRisks": [
+        "Expense incurred beyond the post‑hospitalisation time window (75 days > 60 days)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 24,
+      "category": "Ambiguous",
+      "scenario": "Is my surgery covered? (no other details given)",
+      "expected": "Unclear",
+      "expectedClause": "—",
+      "mustCatch": "Insufficient facts",
+      "rationale": "Calibration rule: with missing facts, the tool must say Unclear, not guess.",
+      "actual": "Unclear",
+      "confidence": "low",
+      "summary": "Coverage cannot be determined without details on the type of surgery, policy age, and any applicable waiting periods or exclusions.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1‑3.4",
+        "Section 5.2",
+        "Section 6.3"
+      ],
+      "rejectionRisks": [
+        "Initial waiting period not satisfied (policy age <30 days) for non‑accidental surgery.",
+        "Specific‑illness waiting period (e.g., cataract, hernia) not satisfied if surgery relates to listed conditions.",
+        "Pre‑existing disease waiting period (36 months) may apply if condition existed before policy start.",
+        "Exclusion of cosmetic surgery if not accident‑related."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    }
+  ]
+}

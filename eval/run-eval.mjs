@@ -214,7 +214,7 @@ async function main() {
   const payload = {
     runAt: new Date().toISOString(),
     baseUrl: BASE_URL,
-    model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile (default)",
+    model: process.env.GROQ_MODEL || "openai/gpt-oss-120b (default)",
     subset: SELECTED_IDS ? SELECTED_IDS : null,
     complete: !SELECTED_IDS && !aborted && results.length === scenarios.length,
     abortedReason: aborted || null,

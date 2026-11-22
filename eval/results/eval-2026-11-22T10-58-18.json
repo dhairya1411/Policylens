@@ -1,0 +1,43 @@
+{
+  "runAt": "2026-11-22T10:58:18.391Z",
+  "baseUrl": "http://localhost:3000",
+  "model": "openai/gpt-oss-120b (default)",
+  "subset": null,
+  "complete": false,
+  "abortedReason": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196216, Requested 4051. Please try again in 1m55.344s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}",
+  "totals": {
+    "scenarios": 1,
+    "scored": 1,
+    "passed": 1,
+    "failed": 0,
+    "apiErrors": 0,
+    "dangerousErrors": 0,
+    "passRate": "100.0%",
+    "dangerousErrorRate": "0.0%"
+  },
+  "results": [
+    {
+      "id": 1,
+      "category": "Coverage",
+      "scenario": "Admitted 3 nights for pneumonia; policy 2 years old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.1",
+      "mustCatch": "—",
+      "rationale": "Inpatient hospitalisation >24 hrs is covered; no waiting period issue at 2 years.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "The pneumonia hospitalisation is covered under the in‑patient hospitalisation clause and the policy age satisfies all waiting periods.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 3.2",
+        "Section 3.3",
+        "Section 5.1"
+      ],
+      "rejectionRisks": [],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 // Get a key at https://console.groq.com/keys
 import Groq from "groq-sdk";
 
-const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 
 function client() {
   const apiKey = process.env.GROQ_API_KEY;

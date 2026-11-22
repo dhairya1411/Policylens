@@ -1,0 +1,552 @@
+{
+  "runAt": "2026-11-22T10:52:16.769Z",
+  "baseUrl": "http://localhost:3000",
+  "model": "openai/gpt-oss-120b (default)",
+  "subset": null,
+  "complete": false,
+  "abortedReason": "Something went wrong checking this scenario. Please try again. 429 {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kxh63w4vff9932qnp36vwnmk` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 3592, Requested 5744. Please try again in 10.02s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}",
+  "totals": {
+    "scenarios": 23,
+    "scored": 23,
+    "passed": 22,
+    "failed": 1,
+    "apiErrors": 0,
+    "dangerousErrors": 0,
+    "passRate": "95.7%",
+    "dangerousErrorRate": "0.0%"
+  },
+  "results": [
+    {
+      "id": 1,
+      "category": "Coverage",
+      "scenario": "Admitted 3 nights for pneumonia; policy 2 years old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.1",
+      "mustCatch": "—",
+      "rationale": "Inpatient hospitalisation >24 hrs is covered; no waiting period issue at 2 years.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Hospitalisation for pneumonia is likely covered because the policy’s 30‑day initial waiting period is satisfied and no exclusions apply.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 3.1",
+        "Section 2.3-2.4",
+        "Section 5.1-5.7"
+      ],
+      "rejectionRisks": [
+        "Room‑rent cap may limit reimbursement to 1% of Sum Insured per day"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 2,
+      "category": "WaitingPeriod",
+      "scenario": "Hospitalised for dengue; policy started 15 days ago.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.1",
+      "mustCatch": "30-day initial waiting period",
+      "rationale": "Any non-accident illness within the first 30 days is not payable.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The claim is denied because the 30‑day initial waiting period for illnesses has not been satisfied (policy is only 15 days old).",
+      "citedClauses": [
+        "Section 2.1"
+      ],
+      "rejectionRisks": [
+        "Initial waiting period of 30 days not met (policy age 15 days)."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 3,
+      "category": "WaitingPeriod",
+      "scenario": "Broke a leg in a road accident; policy is 10 days old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 3.1",
+      "mustCatch": "Accident exception to initial wait",
+      "rationale": "Initial 30-day waiting period does not apply to accidental hospitalisation.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "The broken leg from a road accident is covered because hospitalisation for injury is included and the accident exception removes the initial waiting period.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 5.2"
+      ],
+      "rejectionRisks": [
+        "If the insured is 60 years or older, a 10% co‑payment will be deducted"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 4,
+      "category": "WaitingPeriod",
+      "scenario": "Diabetic for 5 years; admitted for a diabetes complication; policy 12 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.3",
+      "mustCatch": "36-month PED waiting period",
+      "rationale": "Pre-existing disease covered only after 36 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Diabetes is a pre‑existing condition and the 36‑month pre‑existing disease waiting period is not met (policy only 12 months old).",
+      "citedClauses": [
+        "Section 2.1"
+      ],
+      "rejectionRisks": [
+        "Pre‑existing disease waiting period of 36 months not satisfied (policy age 12 months)."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 5,
+      "category": "WaitingPeriod",
+      "scenario": "Cataract surgery; policy 18 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.2",
+      "mustCatch": "24-month specific-illness wait",
+      "rationale": "Cataract needs 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Cataract surgery is covered in principle, but the 24‑month specific‑illness waiting period has not been met (policy is only 18 months old).",
+      "citedClauses": [
+        "Section 2.1"
+      ],
+      "rejectionRisks": [
+        "Specific Illness Waiting Period of 24 months for cataract not satisfied (policy age 18 months)."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 6,
+      "category": "Limit/Co-pay",
+      "scenario": "Cataract surgery; policy 3 years old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 3.2, 4.3",
+      "mustCatch": "Rs 40,000/eye sub-limit",
+      "rationale": "Waiting period met, but cataract claims are capped at Rs 40,000 per eye.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Cataract surgery is likely covered, subject to the Rs 40,000 per‑eye sub‑limit.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.2",
+        "Section 3.1",
+        "Section 2.3, Section 2.4",
+        "Section 5.2"
+      ],
+      "rejectionRisks": [
+        "Cataract sub‑limit of Rs 40,000 per eye per policy year may reduce the payable amount"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 7,
+      "category": "Limit/Co-pay",
+      "scenario": "Father, 65, admitted for cardiac care; policy 4 years old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 4.2",
+      "mustCatch": "10% co-payment (age >60)",
+      "rationale": "Covered, but a 10% co-pay applies as insured is above 60.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "The cardiac hospitalisation is covered, subject to the standard co‑payment and room‑rent caps.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 3.2",
+        "Section 3.3",
+        "Section 5"
+      ],
+      "rejectionRisks": [
+        "10% co‑payment applies because the insured is over 60 years old",
+        "Room‑rent and ICU charges are capped at 1% and 2% of the Sum Insured per day respectively"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 8,
+      "category": "Limit/Co-pay",
+      "scenario": "Chose a deluxe room costing above 1% of the sum insured.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 4.1",
+      "mustCatch": "Proportionate deduction",
+      "rationale": "Room rent capped at 1% of SI/day; higher category => proportionate payment.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Room charges are covered but limited to 1% of the Sum Insured per day, so the deluxe‑room cost above that will be paid proportionately.",
+      "citedClauses": [
+        "Section 2.1"
+      ],
+      "rejectionRisks": [
+        "Initial waiting period of 30 days may apply if the policy is less than 30 days old",
+        "Room rent is capped at 1% of the Sum Insured per day; excess deluxe‑room cost will not be reimbursed"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 9,
+      "category": "Exclusion",
+      "scenario": "Elective cosmetic nose reshaping.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.2",
+      "mustCatch": "Cosmetic surgery excluded",
+      "rationale": "Cosmetic/plastic surgery excluded unless due to accident, burn or cancer.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Elective cosmetic nose reshaping is excluded under the policy’s cosmetic surgery exclusion.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 5.2"
+      ],
+      "rejectionRisks": [
+        "Cosmetic surgery exclusion applies – the procedure is elective and not due to an accident, burn or cancer."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 10,
+      "category": "Exclusion",
+      "scenario": "Reconstructive surgery after a burn injury.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 5.2",
+      "mustCatch": "Burn exception applies",
+      "rationale": "Cosmetic exclusion has an explicit exception for burns.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Reconstructive surgery after a burn injury is covered, assuming the policy’s initial 30‑day waiting period has been satisfied.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 5.2",
+        "Section 4.1, Section 4.2"
+      ],
+      "rejectionRisks": [
+        "If the policy was in force for less than 30 days, the initial waiting period would block the claim.",
+        "Room‑rent and ICU charges are capped at 1% and 2% of the Sum Insured per day respectively.",
+        "A 10% co‑payment is required if the insured is over 60 years old at the time of hospitalisation."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 11,
+      "category": "Exclusion",
+      "scenario": "Root canal at the dentist; no accident involved.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.3",
+      "mustCatch": "Dental excluded",
+      "rationale": "Dental treatment excluded unless due to accident requiring hospitalisation.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Dental procedures like a root canal are excluded under the policy.",
+      "citedClauses": [
+        "Section 5.3"
+      ],
+      "rejectionRisks": [
+        "Dental treatment is excluded unless it follows an accident and requires hospitalisation."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 12,
+      "category": "Exclusion",
+      "scenario": "Jaw surgery with hospitalisation after a road accident.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 5.3",
+      "mustCatch": "Accident exception",
+      "rationale": "Dental due to accident requiring hospitalisation is covered.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Jaw surgery after a road accident is covered under the in‑patient hospitalisation benefit, with the accident exception to the initial waiting period and no applicable exclusion.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 3.1",
+        "Section 5.2"
+      ],
+      "rejectionRisks": [
+        "Room‑rent cap may limit reimbursement for higher‑category rooms",
+        "10% co‑payment applies if the insured is over 60 years old at the time of hospitalisation"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 13,
+      "category": "Exclusion",
+      "scenario": "Admitted one day only for tests; no active treatment given.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.1",
+      "mustCatch": "Diagnostic-only admission excluded",
+      "rationale": "Hospitalisation purely for diagnostics/observation is excluded.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The admission was only for diagnostic tests with no active treatment, which the policy explicitly excludes.",
+      "citedClauses": [
+        "Section 1.1",
+        "Section 5.1"
+      ],
+      "rejectionRisks": [
+        "Exclusion for diagnostic-only hospitalisation without treatment"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 14,
+      "category": "Limit/Co-pay",
+      "scenario": "Cataract done as a day-care procedure (<24 hrs); policy 3 years old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.2, 4.3",
+      "mustCatch": "Rs 40,000/eye sub-limit",
+      "rationale": "Day-care covered and wait met, but the cataract sub-limit still applies.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Cataract day‑care surgery is covered, the 24‑month specific‑illness waiting period is satisfied, and only the cataract sub‑limit (and possible age‑based co‑pay) may reduce the payout.",
+      "citedClauses": [
+        "Section 2.2",
+        "Section 3.2",
+        "Section 3.1",
+        "Section 5",
+        "Section 2.3-2.4"
+      ],
+      "rejectionRisks": [
+        "Cataract sub‑limit of Rs 40,000 per eye per policy year may cap the payable amount.",
+        "If the insured is over 60 years old, a 10% co‑payment will be deducted from the claim amount."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 15,
+      "category": "Coverage",
+      "scenario": "Normal delivery; policy 30 months old.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 4.4, 3.4",
+      "mustCatch": "Rs 50,000 maternity limit",
+      "rationale": "Maternity covered after 24 months; normal delivery limited to Rs 50,000.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Normal delivery is covered because the policy’s maternity benefit is active after the 24‑month waiting period, and the claim meets all coverage conditions.",
+      "citedClauses": [
+        "Section 4.4",
+        "Section 3.4",
+        "Section 2.3-2.4",
+        "Section 5"
+      ],
+      "rejectionRisks": [
+        "Maternity expense amount exceeds Rs. 50,000 limit for normal delivery",
+        "More than two deliveries claimed under the same policy (lifetime cap)",
+        "Room‑rent charges exceeding 1% of Sum Insured per day (or ICU 2%)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 16,
+      "category": "WaitingPeriod",
+      "scenario": "Delivery; policy 12 months old.",
+      "expected": "Not covered",
+      "expectedClause": "Section 3.4",
+      "mustCatch": "24-month maternity wait",
+      "rationale": "Maternity expenses need 24 months of continuous cover.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Maternity expenses are not payable because the policy has been in force for only 12 months, which is less than the 24‑month maternity waiting period.",
+      "citedClauses": [
+        "Section 3.4",
+        "Section 3.4"
+      ],
+      "rejectionRisks": [
+        "Maternity waiting period not satisfied (policy age 12 months < 24 months required)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 17,
+      "category": "Limit/Co-pay",
+      "scenario": "Ambulance bill of Rs 3,500.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.5",
+      "mustCatch": "Rs 2,000 ambulance cap",
+      "rationale": "Road ambulance covered but capped at Rs 2,000 per hospitalisation.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Ambulance charges are covered but only up to Rs 2,000 per hospitalisation, so the Rs 3,500 bill exceeds the sub‑limit.",
+      "citedClauses": [
+        "Section 2.5",
+        "Section 3.1, Section 5",
+        "Section 2.5"
+      ],
+      "rejectionRisks": [
+        "Amount above Rs 2,000 limit will not be reimbursed"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 18,
+      "category": "Coverage",
+      "scenario": "Inpatient Ayurvedic treatment at a recognised hospital.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.6",
+      "mustCatch": "—",
+      "rationale": "AYUSH in-patient treatment covered up to the sum insured.",
+      "actual": "Unclear",
+      "confidence": "medium",
+      "summary": "Ayurvedic inpatient care is covered, but missing information on policy age and whether the condition is pre‑existing creates uncertainty about waiting‑period eligibility.",
+      "citedClauses": [
+        "Section 2.6",
+        "Section 3.1",
+        "Section 3.1"
+      ],
+      "rejectionRisks": [
+        "Initial waiting period not satisfied (policy age <30 days)",
+        "Pre‑existing disease waiting period (36 months) may apply if the treated condition existed before policy start; policy age not provided"
+      ],
+      "pass": false,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 19,
+      "category": "Exclusion",
+      "scenario": "Rehab for alcohol dependence.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.5",
+      "mustCatch": "Substance-abuse excluded",
+      "rationale": "Treatment for alcoholism / substance abuse is excluded.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Treatment for alcohol dependence is excluded under the policy.",
+      "citedClauses": [
+        "Section 5.5"
+      ],
+      "rejectionRisks": [
+        "Initial waiting period of 30 days may apply if the claim is made within that period",
+        "If alcohol dependence existed before the policy start, a pre‑existing disease waiting period of 36 months could apply"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 20,
+      "category": "Exclusion",
+      "scenario": "Injury from a suicide attempt.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.4",
+      "mustCatch": "Self-inflicted excluded",
+      "rationale": "Self-inflicted injury / attempted suicide is excluded.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "The claim is excluded because expenses from self‑inflicted injury or attempted suicide are not covered.",
+      "citedClauses": [
+        "Section 2.1",
+        "Section 5.4"
+      ],
+      "rejectionRisks": [
+        "Exclusion for self‑inflicted injury/suicide",
+        "Initial waiting period of 30 days may apply if policy is less than 30 days old"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 21,
+      "category": "Exclusion",
+      "scenario": "Cost of new prescription glasses.",
+      "expected": "Not covered",
+      "expectedClause": "Section 5.6",
+      "mustCatch": "Spectacles excluded",
+      "rationale": "Spectacles, contact lenses and hearing aids are excluded.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Prescription glasses are excluded under the policy’s exclusions.",
+      "citedClauses": [
+        "Section 2"
+      ],
+      "rejectionRisks": [
+        "Expenses for spectacles are expressly excluded."
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 22,
+      "category": "Coverage",
+      "scenario": "Diagnostic tests 20 days before admission.",
+      "expected": "Likely covered",
+      "expectedClause": "Section 2.3",
+      "mustCatch": "—",
+      "rationale": "Pre-hospitalisation expenses covered up to 30 days before admission.",
+      "actual": "Likely covered",
+      "confidence": "high",
+      "summary": "Diagnostic tests done 20 days before admission are covered under the pre‑hospitalisation benefit.",
+      "citedClauses": [
+        "Section 2.3",
+        "Section 3.1",
+        "Section 2.3",
+        "Section 5.1"
+      ],
+      "rejectionRisks": [
+        "If the policy was issued less than 30 days before the test, the initial waiting period could block the claim"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    },
+    {
+      "id": 23,
+      "category": "Limit/Co-pay",
+      "scenario": "Medicines bought 75 days after discharge.",
+      "expected": "Not covered",
+      "expectedClause": "Section 2.4",
+      "mustCatch": "60-day post-hosp limit",
+      "rationale": "Post-hospitalisation covered only up to 60 days after discharge.",
+      "actual": "Not covered",
+      "confidence": "high",
+      "summary": "Medicines bought 75 days after discharge fall outside the 60‑day post‑hospitalisation coverage window, so the claim is not covered.",
+      "citedClauses": [
+        "Section 2.4",
+        "Section 2.4"
+      ],
+      "rejectionRisks": [
+        "Expense incurred beyond the post‑hospitalisation window (75 days > 60 days)"
+      ],
+      "pass": true,
+      "dangerous": false,
+      "error": null
+    }
+  ]
+}

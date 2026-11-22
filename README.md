@@ -20,7 +20,7 @@ Add your **free** Groq API key to `.env.local`:
 
 ```
 GROQ_API_KEY=...
-GROQ_MODEL=llama-3.3-70b-versatile   # optional override
+GROQ_MODEL=openai/gpt-oss-120b   # optional override
 ```
 
 Get a free key (no credit card) at https://console.groq.com/keys — sign in with Google,
